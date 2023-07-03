@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const rateLimit = require('express-rate-limit');
+const { authMiddleware } = require('./middlewares/auth');
 require('dotenv').config();
 
 const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1/bitfilmsdb' } = process.env;
@@ -42,13 +43,9 @@ app.use((_, res, next) => {
 
 app.use(cookieParser());
 // app.use(requestLogger);
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадёт');
-//   }, 0);
-// });
 app.use('/', require('./routes/auth'));
-// app.use(authMiddleware);
+
+app.use(authMiddleware);
 app.use('/users', require('./routes/users'));
 app.use('/movies', require('./routes/movies'));
 

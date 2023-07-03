@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const rateLimit = require('express-rate-limit');
 const { errorMiddleware } = require('./middlewares/error');
@@ -15,13 +16,13 @@ const NotFoundError = require('./errors/notFoundError');
 
 const app = express();
 
-// const corsOptions = {
-//   origin: ['https://listik-fialki.nomoredomains.rocks', 'http://listik-fialki.nomoredomains.rocks'],
-//   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-// };
+const corsOptions = {
+  origin: ['https://listik-fialki.nomoreparties.sbs', 'http://listik-fialki.nomoreparties.sbs'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());

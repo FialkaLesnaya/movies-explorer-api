@@ -16,6 +16,7 @@
 
 IP 51.250.31.169
 Backend https://api.listik-fialki.nomoreparties.sbs
+Frontend https://listik-fialki.nomoreparties.sbs
 
 ### Директории
 

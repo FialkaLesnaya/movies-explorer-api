@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
+const { errors } = require('celebrate');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1/bitfilmsdb' } = process.env;
+const NotFoundError = require('./errors/notFoundError');
 
 const app = express();
 
@@ -48,12 +50,12 @@ app.use(cookieParser());
 // app.post('/signin', celebrate({ body: validateAuthentication }), login);
 // app.post('/signup', celebrate({ body: validateUserBody }), createUser);
 // app.use(authMiddleware);
-// app.use('/users', require('./routes/users'));
-// app.use('/cards', require('./routes/cards'));
+app.use('/users', require('./routes/users'));
+app.use('/movies', require('./routes/movies'));
 
-// app.use((_, __, next) => next(new NotFoundError('Недействительный путь')));
+app.use((_, __, next) => next(new NotFoundError('Недействительный путь')));
 // app.use(errorLogger);
-// app.use(errors());
+app.use(errors());
 // app.use(errorMiddleware);
 
 app.listen(PORT, () => {

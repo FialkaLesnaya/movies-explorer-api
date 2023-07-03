@@ -3,8 +3,8 @@ const { REG_EXP_URL } = require('./utils');
 
 const validateUserDetails = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().email().required(),
-    name: Joi.string().min(2).max(30).required(),
+    email: Joi.string().email(),
+    name: Joi.string().min(2).max(30),
   }),
 });
 

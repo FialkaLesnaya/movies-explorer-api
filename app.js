@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
-const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1/movies-api' } = process.env;
+const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1/bitfilmsdb' } = process.env;
 
 const app = express();
 

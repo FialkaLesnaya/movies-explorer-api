@@ -14,6 +14,9 @@
 **Ссылки**
 * [Ссылка на Gitlub](https://github.com/FialkaLesnaya/movies-explorer-api)
 
+IP 51.250.31.169
+Backend https://api.listik-fialki.nomoreparties.sbs
+
 ### Директории
 
 `/routes` — папка с файлами роутера  

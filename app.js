@@ -5,7 +5,9 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const rateLimit = require('express-rate-limit');
+const { errorMiddleware } = require('./middlewares/error');
 const { authMiddleware } = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 require('dotenv').config();
 
 const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1/bitfilmsdb' } = process.env;
@@ -42,7 +44,7 @@ app.use((_, res, next) => {
 });
 
 app.use(cookieParser());
-// app.use(requestLogger);
+app.use(requestLogger);
 app.use('/', require('./routes/auth'));
 
 app.use(authMiddleware);
@@ -50,9 +52,9 @@ app.use('/users', require('./routes/users'));
 app.use('/movies', require('./routes/movies'));
 
 app.use((_, __, next) => next(new NotFoundError('Недействительный путь')));
-// app.use(errorLogger);
+app.use(errorLogger);
 app.use(errors());
-// app.use(errorMiddleware);
+app.use(errorMiddleware);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

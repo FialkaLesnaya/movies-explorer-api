@@ -1,7 +1,7 @@
 const { Joi, celebrate } = require('celebrate');
 const { REG_EXP_URL } = require('./utils');
 
-const validateUserInfo = celebrate({
+const validateUserDetails = celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
     name: Joi.string().min(2).max(30).required(),
@@ -31,8 +31,25 @@ const validateMovieId = celebrate({
   }),
 });
 
+const validateAuthentication = celebrate({
+  body: Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  }),
+});
+
+const validateUserBody = celebrate({
+  body: Joi.object({
+    name: Joi.string().min(2).max(30),
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  }),
+});
+
 module.exports = {
-  validateUserInfo,
+  validateUserDetails,
   validateMovieBody,
   validateMovieId,
+  validateAuthentication,
+  validateUserBody,
 };
